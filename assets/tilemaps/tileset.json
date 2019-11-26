@@ -1,0 +1,14 @@
+{ "columns":14,
+ "image":"..\/..\/..\/xampp\/htdocs\/creating-a-platformer-with-phaser-3-master\/assets\/tilesets\/platformPack_tilesheet.png",
+ "imageheight":448,
+ "imagewidth":896,
+ "margin":0,
+ "name":"tileset",
+ "spacing":0,
+ "tilecount":98,
+ "tiledversion":"1.2.5",
+ "tileheight":64,
+ "tilewidth":64,
+ "type":"tileset",
+ "version":1.1
+}
