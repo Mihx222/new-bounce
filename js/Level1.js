@@ -27,7 +27,7 @@ Game.Level1.prototype = {
         // player.animations.add('jump', [2], 1, true);
         // player.animations.add('run', [3, 4, 5, 6, 7, 8], 7, true);
         this.physics.arcade.enable(player);
-        this.camera.follow(player);
+        this.camera.follow(player, Phaser.Camera.FOLLOW_PLATFORMER);
         player.body.collideWorldBounds = true;
 
         controls = {
@@ -40,27 +40,20 @@ Game.Level1.prototype = {
     update:function() {
         this.physics.arcade.collide(player, layer);
 
-        if (controls.up.isDown) {
-            // player.animations.play('jump');
-        }
-
-        if (controls.right.isDown) {
-            // player.animations.play('run');
-            player.scale.setTo(1, 1);
-            player.body.velocity.x = playerSpeed;
-        }
-
-        if (controls.left.isDown) {
-            // player.animations.play('run');
-            player.scale.setTo(-1, 1);
-            player.body.velocity.x = -playerSpeed;
-        }
-
-        if (controls.up.isDown &&
+        if (controls.right.isDown &&
             (player.body.onFloor() || player.body.touching.down) &&
             this.time.now > jumpTimer) {
                 player.body.velocity.y = -600;
+                player.body.velocity.x = playerSpeed;
                 jumpTimer = this.time.now + 750;
+        } else if (controls.left.isDown &&
+            (player.body.onFloor() || player.body.touching.down) &&
+            this.time.now > jumpTimer) {
+                player.body.velocity.y = -600;
+                player.body.velocity.x = -playerSpeed;
+                jumpTimer = this.time.now + 750;
+        } else if (!controls.left.isDown && !controls.right.isDown) {
+            player.body.velocity.x = 0;
         }
     }
 }
