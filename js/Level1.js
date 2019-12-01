@@ -5,13 +5,13 @@ var layer;
 
 var player;
 var controls = {};
-var playerSpeed = 150;
+var playerSpeed = 250;
 var jumpTimer = 0;
 
 Game.Level1.prototype = {
     create:function() {
         this.stage.backgroundColor = '#3A5963';
-        this.physics.arcade.gravity.y = 1400;
+        this.physics.arcade.gravity.y = 1200;
 
         map = this.add.tilemap('map', 64, 64);
         map.addTilesetImage('tileset', 'tiles');
@@ -19,9 +19,9 @@ Game.Level1.prototype = {
         layer = map.createLayer('ground');
         layer.resizeWorld();
 
-        map.setCollisionBetween(0, 2);
+        map.setCollisionBetween(0, 60);
 
-        player = this.add.sprite(100, 160, 'small_ball');
+        player = this.add.sprite(100, 460, 'big_ball');
         player.anchor.setTo(0.5, 0.5);
         // player.animations.add('idle', [0, 1], 1, true);
         // player.animations.add('jump', [2], 1, true);
