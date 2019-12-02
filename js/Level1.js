@@ -18,6 +18,13 @@ Game.Level1.prototype = {
         this.stage.backgroundColor = '#3A5963';
         this.physics.arcade.gravity.y = 1200;
 
+        // Fix for player falling through tiles when moving too fast
+        this.game.physics.arcade.TILE_BIAS *= 2;
+
+        this.game.scaleMode = Phaser.ScaleManager.RESIZE;
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+
         map = this.add.tilemap('map', 64, 64);
         map.addTilesetImage('tileset', 'tiles');
 
