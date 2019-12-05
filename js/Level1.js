@@ -4,11 +4,14 @@ Game.Level1 = function(game) {};
 
 var map;
 var layer;
+
 var player;
 var playerSpawnX = 100;
 var playerSpawnY = 800;
 var playerVelocityX = 250;
 var playerVelocityY = 600;
+var playerName;
+
 var crystals; 
 var count = 0;  
 var speedPowerUp;
@@ -29,6 +32,12 @@ Game.Level1.prototype = {
     },
 
     create:function(game) {
+        // Prompt and set player name. Default is 'Player'
+        this.playerName = prompt('Please enter your name: ');
+        if (this.playerName === null || this.playerName === "") {
+            this.playerName = "Player";
+        }
+
         this.stage.backgroundColor = '#3A5963';
         this.physics.arcade.gravity.y = 1200;
 
@@ -73,9 +82,7 @@ Game.Level1.prototype = {
         map.setTileIndexCallback(5, this.resetPlayer, this);
         map.setTileIndexCallback(19, this.resetPlayer, this);
         
-      
-
-        player = this.add.sprite(playerSpawnX, playerSpawnY, 'big_ball');
+        player = this.add.sprite(playerSpawnX, playerSpawnY, 'small_ball');
         player.anchor.setTo(0.5, 0.5);
         // player.animations.add('jump', [2], 1, true);
         this.physics.arcade.enable(player);
@@ -102,13 +109,19 @@ Game.Level1.prototype = {
         this.physics.arcade.collide(sizePowerUp, layer);
         this.physics.arcade.collide(endDoor, layer);
 
-        if(count == 6)  map.createFromObjects('endPoint',90,'endDoorSprite',0,true,false,endDoor);
+        if(count == 6) {
+            map.createFromObjects('endPoint',90,'endDoorSprite',0,true,false,endDoor);
+        }
 
-        // enable phisycs for power ups  and stars srites
+        // enable collision for power ups and stars srites
         this.physics.arcade.overlap(player, crystals,this.collectCrystal,false,null, this);
         this.physics.arcade.overlap(player, speedPowerUp,this.collectSpeedStar,false,null, this);
         this.physics.arcade.overlap(player, sizePowerUp,this.collectSizeStar,false,null, this);
-        this.physics.arcade.overlap(player, endDoor,function(){ game.state.start('EndScreen');},false,null, this);
+        this.physics.arcade.overlap(player, endDoor, () => { 
+            game.state.start('EndScreen');
+            // Save data to the database
+            this.persistScore(this.playerName, count);
+        }, false, null, this);
     
 
         // Player controls
@@ -180,5 +193,16 @@ Game.Level1.prototype = {
         playerVelocityY = 600;
         timerDelay = 400;
         
-    }
+    },
+
+    persistScore:function(user, score) {
+        var url = 'db/persistScore.php';
+        var params = 'user=' + user + '&score=' + score;
+
+        // Create and send AJAX request
+        var request = new XMLHttpRequest();
+        request.open('POST', url, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send(params);
+    } 
 }
