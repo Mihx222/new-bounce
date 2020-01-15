@@ -1,6 +1,5 @@
 Game.Preloader = function(game) {
-    this.preloadBar = null;
-};
+    this.preloadBar = null; };
 
 Game.Preloader.prototype = {
     preload:function() {
@@ -18,6 +17,6 @@ Game.Preloader.prototype = {
     },
 
     create:function() {
-        this.state.start('MainMenu');
+        this.state.start('MainMenu');   
     }
 }

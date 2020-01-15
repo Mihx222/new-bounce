@@ -96,7 +96,6 @@ Game.Level1.prototype = {
         crystals.enableBody = true;
         this.physics.arcade.enable(crystals);
 
-
         //enable  speed power ups
        speedPowerUp = game.add.group();
        speedPowerUp.enableBody = true;
@@ -182,7 +181,7 @@ Game.Level1.prototype = {
         this.physics.arcade.collide(endDoor, layer);
 
         //if the player colected 50 stars spawn the exit door
-        if(count == 50) {
+        if(count == 9) {
             map.createFromObjects('endPoint',90,'endDoorSprite',0,true,false,endDoor);
         }
 
@@ -270,8 +269,8 @@ Game.Level1.prototype = {
 
     collectSpeedStar:function(game,speedPowerUpStar){
         speedPowerUpStar.kill();
-        playerVelocityX += 100;
-        playerVelocityY += 100;
+        playerVelocityX += 50;
+        playerVelocityY += 50;
         timerDelay -= 100;
         
     },
@@ -310,7 +309,13 @@ Game.Level1.prototype = {
     },
 
     resetPlayer1:function(){
+        player.loadTexture('small_ball');
+        player.body.setSize(30, 27);
         player.reset(playerSpawnX, playerSpawnY);
+
+        playerVelocityX = 350;
+        playerVelocityY = 450;
+        timerDelay = 300;
     }
     
 }
