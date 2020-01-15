@@ -181,7 +181,7 @@ Game.Level1.prototype = {
         this.physics.arcade.collide(endDoor, layer);
 
         //if the player colected 50 stars spawn the exit door
-        if(count == 9) {
+        if(count == 50) {
             map.createFromObjects('endPoint',90,'endDoorSprite',0,true,false,endDoor);
         }
 
