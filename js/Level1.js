@@ -11,7 +11,7 @@ enemyBird = function(index,game,x,y){
 
     this.birdTween = game.add.tween(this.bird).to({
         y:this.bird.y+250 
-    },2000,'Linear',true,0,150,true);
+    },2000,'Linear',true,0,1000,true);
 }
 
 enemySpider = function(index,game,x,y){
@@ -25,7 +25,7 @@ enemySpider = function(index,game,x,y){
 
     this.birdTween = game.add.tween(this.bird).to({
         x:this.bird.x+250 
-    },2000,'Linear',true,0,100,true);
+    },2000,'Linear',true,0,1000,true);
 }
 
 Game.Level1 = function(game) {};
